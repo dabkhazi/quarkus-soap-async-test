@@ -14,7 +14,7 @@ Follow the steps below to install and run the project.
    git clone https://github.com/dabkhazi/quarkus-soap-async-test.git
    cd <project_folder>
    ```
-   
+
 2. Start the SOAP server:
 
     ```bash
@@ -34,18 +34,6 @@ To test the REST service, run the following `curl` command:
 ```bash
 curl -i http://localhost:8082/calculator/add-async?a=1&b=2
 ```
-
-### Known Issue
-
-Currently, the following error occurs during execution:
-
-``` java.lang.ClassCastException: class org.apache.cxf.jaxws.JaxwsResponseCallback cannot be cast to class io.netty.util.concurrent.Future (org.apache.cxf.jaxws.JaxwsResponseCallback and io.netty.util.concurrent.Future are in unnamed module of loader io.quarkus.bootstrap.classloading.QuarkusClassLoader) ```
-
-This issue is related to incompatibility between `org.apache.cxf.jaxws.JaxwsResponseCallback` and `io.netty.util.concurrent.Future`. Efforts are underway to resolve this problem.
-
-### Seeking Help
-
-Any assistance in resolving the above issue is greatly appreciated. If you have experience with Quarkus, Apache CXF, or asynchronous SOAP handling, feel free to provide suggestions.
 
 ### Project Structure
 

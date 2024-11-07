@@ -2,7 +2,7 @@ package io.github.dabkhazi.wscalculator.boundary;
 
 import io.github.dabkhazi.wscalculator.calculator.CalculatorService;
 import io.github.dabkhazi.wscalculator.calculator.AddResponse;
-import io.netty.util.concurrent.Future;
+import java.util.concurrent.Future;
 import io.quarkiverse.cxf.annotation.CXFClient;
 import io.smallrye.mutiny.Uni;
 import jakarta.inject.Inject;
@@ -11,6 +11,8 @@ import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.core.MediaType;
+
+import io.quarkus.logging.Log;
 
 @Path("/calculator")
 public class CalculatorResource {
@@ -24,12 +26,15 @@ public class CalculatorResource {
     @GET
     @Produces(MediaType.TEXT_PLAIN)
     public Uni<Integer> addAsync(@QueryParam("a") int a, @QueryParam("b") int b) {
+        Log.info("Do add-async call ..."); 
         return Uni.createFrom()
                 .future(
                         (Future<AddResponse>) calculator
                                 .addAsync(a, b, res -> {
                                 }))
-                .map(addResponse -> addResponse.getReturn());
+                .map(addResponse -> {
+                    Log.info("Got add-async result");
+                    return addResponse.getReturn();});
     }
 
     @Path("/add-sync")
